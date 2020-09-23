@@ -4,7 +4,6 @@
       "src/"
     ],
     "outDir": "./dist",
-    "watch": true,
     "target": "es5",
     "module": "CommonJS",
     "types": [
