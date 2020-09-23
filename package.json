@@ -6,6 +6,14 @@
   "repository": "git@github.com:NessMC/project-manager-c.git",
   "author": "NessMC <contact@nessmc.fr>",
   "license": "MIT",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha -r ts-node/register/transpile-only -r tsconfig-paths/register tests/**/*.spec.ts",
+    "build": "./node_modules/.bin/tsc",
+    "start": "node dist/main.js",
+    "start:watch": "nodemon dist/index.js --exec \"npm run start\"",
+    "dev": "./node_modules/.bin/ts-node --project tsconfig.json -r tsconfig-paths/register .\\src\\main.ts",
+    "dev:watch": "nodemon src/main.ts --exec \"npm run dev\" --ignore *.json"
+  },
   "dependencies": {
     "@types/node": "^14.11.2",
     "ts-loader": "^8.0.4",
