@@ -1,0 +1,9 @@
+{
+  "name": "project-manager-c",
+  "version": "0.0.1",
+  "description": "Project Manager C is a simple CLI tool that allows you to easily manage your C project. It provides a clear and readable file architecture that allows you to increase your productivity.",
+  "main": "src/main.ts",
+  "repository": "git@github.com:NessMC/project-manager-c.git",
+  "author": "NessMC <contact@nessmc.fr>",
+  "license": "MIT"
+}
