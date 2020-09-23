@@ -1,0 +1,2 @@
+# Project Manager C
+Project Manager C is a simple CLI tool that allows you to easily manage your C project. It provides a clear and readable file architecture that allows you to increase your productivity.
