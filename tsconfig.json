@@ -14,7 +14,13 @@
     "allowJs": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "commands/*": ["./src/commands/*"],
+      "core/*": ["./src/core/*"],
+      "libs/*": ["./src/libs/*"],
+      "template/*": ["./src/template/*"],
+      "typings/*": ["./src/typings/*"]
+    }
   },
   "exclude": [
     "node_modules"
