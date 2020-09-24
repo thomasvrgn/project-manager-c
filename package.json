@@ -12,7 +12,9 @@
     "start": "node dist/main.js",
     "start:watch": "nodemon dist/index.js --exec \"npm run start\"",
     "dev": "./node_modules/.bin/ts-node --project tsconfig.json -r tsconfig-paths/register .\\src\\main.ts",
-    "dev:watch": "nodemon src/main.ts --exec \"npm run dev\" --ignore *.json"
+    "dev:watch": "nodemon src/main.ts --exec \"npm run dev\" --ignore *.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@types/node": "^14.11.2",
