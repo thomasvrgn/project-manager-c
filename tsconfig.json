@@ -16,12 +16,24 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "commands/*": ["./src/commands/*"],
-      "core/*": ["./src/core/*"],
-      "libs/*": ["./src/libs/*"],
-      "template/*": ["./src/template/*"],
-      "typings/*": ["./src/typings/*"],
-      "tests/*": ["./tests/*"],
+      "commands/*": [
+        "./src/commands/*"
+      ],
+      "core/*": [
+        "./src/core/*"
+      ],
+      "libs/*": [
+        "./src/libs/*"
+      ],
+      "template/*": [
+        "./src/template/*"
+      ],
+      "typings/*": [
+        "./src/typings/*"
+      ],
+      "tests/*": [
+        "./tests/*"
+      ],
     }
   },
   "exclude": [
