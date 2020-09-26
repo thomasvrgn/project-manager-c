@@ -19,7 +19,8 @@
       "core/*": ["./src/core/*"],
       "libs/*": ["./src/libs/*"],
       "template/*": ["./src/template/*"],
-      "typings/*": ["./src/typings/*"]
+      "typings/*": ["./src/typings/*"],
+      "tests/*": ["./tests/*"],
     }
   },
   "exclude": [
