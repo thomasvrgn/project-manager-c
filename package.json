@@ -14,6 +14,7 @@
     "dev": "./node_modules/.bin/ts-node --project tsconfig.json -r tsconfig-paths/register .\\src\\main.ts",
     "dev:watch": "nodemon src/main.ts --exec \"npm run dev\" --ignore *.json",
     "lint": "eslint .",
+    "lint:watch": "./node_modules/.bin/esw **/*.ts -w",
     "lint:fix": "eslint . --fix",
     "test": "./node_modules/.bin/jest",
     "test:watch": "./node_modules/.bin/jest --watch"
