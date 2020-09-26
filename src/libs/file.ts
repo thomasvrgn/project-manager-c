@@ -78,4 +78,25 @@ export default class Reader {
       }
     });
   }
+
+  public prepend(...content: Array<any>): Promise<Error | Boolean> {
+    // Returning promise
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
+      if (this.file.content.length === 0) await this.read();
+      // Getting file content from global variable
+      const fileContent: Array<string> = this.file.content.split(/\r?\n/g);
+      // Parsing readed content and arguments
+      const prependedFileContent: Array<any> = content.concat(...fileContent);
+      try {
+        // Trying writing prepended file content
+        await this.write(...prependedFileContent);
+        // Resolving true.
+        resolve(true);
+      } catch (exception: unknown) {
+        // Catching and rejecting exception
+        reject(exception);
+      }
+    });
+  }
 }
