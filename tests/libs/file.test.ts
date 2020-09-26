@@ -26,4 +26,14 @@ describe('#Reader library testing', () => {
       expect(reader.read()).resolves.toBe('Hello world');
     });
   });
+  describe('#Deleting', () => {
+    const filePath: string = 'tests/libs/content/newFile.txt';
+    const reader: Reader = new Reader(filePath);
+    test('should delete file', async () => {
+      expect(reader.delete()).resolves.toBeTruthy();
+    });
+    test('should not more exist', async () => {
+      expect(reader.read()).rejects.toThrowError();
+    });
+  });
 });
