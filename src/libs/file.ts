@@ -1,5 +1,6 @@
 import { readFile, unlink, writeFile } from 'fs';
 import { File } from 'typings/file';
+import { Replace } from 'typings/replace';
 
 export default class Reader {
   // Defining file variable
@@ -97,6 +98,36 @@ export default class Reader {
         // Catching and rejecting exception
         reject(exception);
       }
+    });
+  }
+
+  public replace(...replaces: Array<Replace>): Promise<Error | Boolean> {
+    // Returning promise
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
+      // Setting file content if global file variable is empty
+      if (this.file.content.length === 0) await this.read();
+      // Looping replaces items
+      replaces.map(async (replace: Replace): Promise<Boolean> => {
+        const {
+          from,
+          to,
+          flags,
+        } = replace;
+        // Building regex
+        const regex: RegExp = new RegExp(from, flags);
+        // Replacing global file content regex with corresponding value
+        this.file.content = this.file.content.replace(regex, to);
+        try {
+          // Writing new replaced file content
+          await this.write(...this.file.content.split(/\r?\n/g));
+          resolve(true);
+        } catch (exception: unknown) {
+          // Rejecting exception
+          reject(exception);
+        }
+        return true;
+      });
     });
   }
 }
