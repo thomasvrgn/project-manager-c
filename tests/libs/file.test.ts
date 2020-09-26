@@ -18,21 +18,29 @@ describe('#Reader library testing', () => {
       expect(reader.read()).rejects.toThrowError();
     });
   });
+  // Writer method tests
   describe('#Writing', () => {
-    test('should create a new file or updating a file', async () => {
+    // Testing if reader correctly creating a new file
+    test('should create a new file', async () => {
       const filePath: string = 'tests/libs/content/newFile.txt';
       const reader: Reader = new Reader(filePath);
       reader.write('Hello world');
+      // Expecting reader to resolve "Hello world" value
       expect(reader.read()).resolves.toBe('Hello world');
     });
   });
+  // Deleter method tests
   describe('#Deleting', () => {
     const filePath: string = 'tests/libs/content/newFile.txt';
     const reader: Reader = new Reader(filePath);
+    // Testing if reader theoretically deletes a file
     test('should delete file', async () => {
+      // Expecting reader to resolve true
       expect(reader.delete()).resolves.toBeTruthy();
     });
+    // Testing if reader correctly delete a file
     test('should not more exist', async () => {
+      // Expecting reader to throw error when trying reading file
       expect(reader.read()).rejects.toThrowError();
     });
   });
