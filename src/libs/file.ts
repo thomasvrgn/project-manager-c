@@ -1,26 +1,27 @@
 import { readFile, writeFile } from 'fs';
+import { File } from 'typings/file';
 
-export default class File {
-  // Defining file name variable
-  private file: string;
-
-  // Defining file content variable
-  private fileContent: string;
+export default class Reader {
+  // Defining file variable
+  private file: File = {
+    name: '',
+    content: '',
+  };
 
   constructor(fileName: string) {
     // Setting global file variable to file name argument
-    this.file = fileName;
+    this.file.name = fileName;
   }
 
   public read(): Promise<string> {
     // Returning promise
     return new Promise((resolve: Function, reject: Function): void => {
       // Reading global file
-      readFile(this.file, 'utf-8', (error: Error, content: string): void => {
+      readFile(this.file.name, 'utf-8', (error: Error, content: string): void => {
         // If any error then rejecting promise
         if (error) reject(error);
         // Else setting global file content to new read content;
-        this.fileContent = content;
+        this.file.content = content;
         // Else resolving content
         resolve(content);
       });
@@ -33,11 +34,11 @@ export default class File {
       // Parsing arguments
       const parsedContent: string = content.join('\n');
       // Writing to global file
-      writeFile(this.file, parsedContent, (error: Error) => {
+      writeFile(this.file.name, parsedContent, (error: Error) => {
         // If any error then rejecting promise
         if (error) reject(error);
         // Else defining new global file content
-        this.fileContent = parsedContent;
+        this.file.content = parsedContent;
         // Else resolving true
         resolve(true);
       });
@@ -49,7 +50,7 @@ export default class File {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
       // Getting file content from global variable
-      const fileContent: Array<string> = this.fileContent.split(/\r?\n/g);
+      const fileContent: Array<string> = this.file.content.split(/\r?\n/g);
       // Parsing readed content and arguments
       const appendedFileContent: Array<any> = fileContent.concat(...content);
       try {
