@@ -62,13 +62,14 @@ export default class Reader {
     // Returning promise
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
+      if (this.file.content.length === 0) await this.read();
       // Getting file content from global variable
       const fileContent: Array<string> = this.file.content.split(/\r?\n/g);
       // Parsing readed content and arguments
       const appendedFileContent: Array<any> = fileContent.concat(...content);
       try {
         // Trying writing appended file content
-        await this.write(appendedFileContent);
+        await this.write(...appendedFileContent);
         // Resolving true.
         resolve(true);
       } catch (exception: unknown) {

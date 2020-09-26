@@ -44,4 +44,11 @@ describe('#Reader library testing', () => {
       expect(reader.read()).rejects.toThrowError();
     });
   });
+  // Appender method tests
+  describe('#Appending', () => {
+    test('should append text at the end of a file', async () => {
+      const reader: Reader = new Reader('tests/libs/content/append.txt');
+      await reader.append('test');
+    });
+  });
 });
