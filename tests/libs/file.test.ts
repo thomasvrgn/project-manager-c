@@ -18,4 +18,12 @@ describe('#Reader library testing', () => {
       expect(reader.read()).rejects.toThrowError();
     });
   });
+  describe('#Writing', () => {
+    test('should create a new file or updating a file', async () => {
+      const filePath: string = 'tests/libs/content/newFile.txt';
+      const reader: Reader = new Reader(filePath);
+      reader.write('Hello world');
+      expect(reader.read()).resolves.toBe('Hello world');
+    });
+  });
 });
