@@ -25,6 +25,7 @@
     "eslint": "^7.9.0",
     "eslint-config-airbnb-typescript": "^10.0.0",
     "eslint-plugin-import": "^2.22.0",
+    "eslint-watch": "^7.0.0",
     "jest": "^26.4.2",
     "ts-jest": "^26.4.0",
     "ts-loader": "^8.0.4",
