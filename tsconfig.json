@@ -7,7 +7,8 @@
     "target": "es5",
     "module": "CommonJS",
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "moduleResolution": "node",
     "downlevelIteration": true,
@@ -27,7 +28,8 @@
     "node_modules"
   ],
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "tests/**/*.ts"
   ],
   "files": [
     "src/main.ts"
