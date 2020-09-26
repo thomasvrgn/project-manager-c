@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'fs';
+import { readFile, unlink, writeFile } from 'fs';
 import { File } from 'typings/file';
 
 export default class Reader {
@@ -39,6 +39,19 @@ export default class Reader {
         if (error) reject(error);
         // Else defining new global file content
         this.file.content = parsedContent;
+        // Else resolving true
+        resolve(true);
+      });
+    });
+  }
+
+  public delete(): Promise<Error | Boolean> {
+    // Returning promise
+    return new Promise((resolve: Function, reject: Function): void => {
+      // Deleting the specified file
+      unlink(this.file.name, (error: Error): void => {
+        // If any error then rejecting promise
+        if (error) reject(error);
         // Else resolving true
         resolve(true);
       });
