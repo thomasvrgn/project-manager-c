@@ -1,4 +1,5 @@
-import { readFile, unlink, writeFile } from 'fs';
+import { rejects } from 'assert';
+import { readFile, stat, Stats, unlink, writeFile } from 'fs';
 import { File } from 'typings/file';
 import { Replace } from 'typings/replace';
 
@@ -127,6 +128,15 @@ export default class Reader {
           reject(exception);
         }
         return true;
+      });
+    });
+  }
+
+  public stats(): Promise<Stats> {
+    return new Promise((resolve: Function, reject: Function) => {
+      stat(this.file.name, (error: Error, stats: Stats) => {
+        if (error) reject(error);
+        resolve(stats);
       });
     });
   }
