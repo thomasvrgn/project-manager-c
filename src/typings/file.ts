@@ -1,5 +1,5 @@
 export interface File {
   name: string,
   extension?: string | null,
-  content: string,
+  content: string | Array<string>,
 }

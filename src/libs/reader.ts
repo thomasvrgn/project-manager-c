@@ -1,4 +1,5 @@
 import {
+  readdir,
   readFile,
   stat, Stats,
   unlink,
@@ -20,20 +21,34 @@ export default class Reader {
     this.file.name = fileName;
   }
 
-  public read(): Promise<string> {
+  public read(): Promise<string | Array<string>> {
     // Returning promise
-    return new Promise((resolve: Function, reject: Function): void => {
-      // Reading global file
-      readFile(this.file.name, 'utf-8', (error: Error, content: string): void => {
-        // If any error then rejecting promise
-        if (error) reject(error);
-        // Else setting global file content to new read content
-        this.file.content = content;
-        // Setting global file extension to file extension
-        this.file.extension = extname(this.file.name);
-        // Else resolving content
-        resolve(content);
-      });
+    // eslint-disable-next-line no-async-promise-executor
+    return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
+      const stats: Stats = await this.stats();
+      if (stats.isFile()) {
+        // Reading global file
+        readFile(this.file.name, 'utf-8', (error: Error, content: string): void => {
+          // If any error then rejecting promise
+          if (error) reject(error);
+          // Else setting global file content to new read content
+          this.file.content = content;
+          // Setting global file extension to file extension
+          this.file.extension = extname(this.file.name);
+          // Else resolving content
+          resolve(content);
+        });
+      } else {
+        // Reading global file
+        readdir(this.file.name, (error: Error, content: Array<string>): void => {
+          // If any error then rejecting promise
+          if (error) reject(error);
+          // Else setting global file content to new read content
+          this.file.content = content;
+          // Else resolving content
+          resolve(content);
+        });
+      }
     });
   }
 
@@ -73,7 +88,7 @@ export default class Reader {
     return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
       if (this.file.content.length === 0) await this.read();
       // Getting file content from global variable
-      const fileContent: Array<string> = this.file.content.split(/\r?\n/g);
+      const fileContent: Array<string> = (this.file.content as string).split(/\r?\n/g);
       // Parsing readed content and arguments
       const appendedFileContent: Array<any> = fileContent.concat(...content);
       try {
@@ -94,7 +109,7 @@ export default class Reader {
     return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
       if (this.file.content.length === 0) await this.read();
       // Getting file content from global variable
-      const fileContent: Array<string> = this.file.content.split(/\r?\n/g);
+      const fileContent: Array<string> = (this.file.content as string).split(/\r?\n/g);
       // Parsing readed content and arguments
       const prependedFileContent: Array<any> = content.concat(...fileContent);
       try {
@@ -125,7 +140,7 @@ export default class Reader {
         // Building regex
         const regex: RegExp = new RegExp(from, flags);
         // Replacing global file content regex with corresponding value
-        this.file.content = this.file.content.replace(regex, to);
+        this.file.content = (this.file.content as string).replace(regex, to);
         try {
           // Writing new replaced file content
           await this.write(...this.file.content.split(/\r?\n/g));

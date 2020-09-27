@@ -7,7 +7,7 @@ describe('#Reader library testing', () => {
     // Testing if reader return correct text
     test('should return text content', async () => {
       const reader: Reader = new Reader('tests/libs/content/test.txt');
-      const content: string = await reader.read();
+      const content: string = await reader.read() as string;
       // Expecting reader to return "bruh" content
       expect(content).toEqual('bruh');
     });
