@@ -1,5 +1,10 @@
-import { rejects } from 'assert';
-import { readFile, stat, Stats, unlink, writeFile } from 'fs';
+import {
+  readFile,
+  stat, Stats,
+  unlink,
+  writeFile,
+} from 'fs';
+import { extname } from 'path';
 import { File } from 'typings/file';
 import { Replace } from 'typings/replace';
 
@@ -22,8 +27,10 @@ export default class Reader {
       readFile(this.file.name, 'utf-8', (error: Error, content: string): void => {
         // If any error then rejecting promise
         if (error) reject(error);
-        // Else setting global file content to new read content;
+        // Else setting global file content to new read content
         this.file.content = content;
+        // Setting global file extension to file extension
+        this.file.extension = extname(this.file.name);
         // Else resolving content
         resolve(content);
       });
@@ -133,9 +140,13 @@ export default class Reader {
   }
 
   public stats(): Promise<Stats> {
+    // Returning promise
     return new Promise((resolve: Function, reject: Function) => {
+      // Getting file stats
       stat(this.file.name, (error: Error, stats: Stats) => {
+        // If any error, rejecting error
         if (error) reject(error);
+        // Else resolving file stats
         resolve(stats);
       });
     });
