@@ -48,7 +48,24 @@ describe('#Reader library testing', () => {
   describe('#Appending', () => {
     test('should append text at the end of a file', async () => {
       const reader: Reader = new Reader('tests/libs/content/append.txt');
-      await reader.append('test');
+      expect(reader.append('test')).resolves.toBeTruthy();
+    });
+  });
+  // Replacer method tests
+  describe('#Replacing', () => {
+    const reader: Reader = new Reader('tests/libs/content/append.txt');
+    test('should replace "test" with another value', async () => {
+      expect(reader.replace({
+        from: 'test',
+        to: 'newValue',
+      })).resolves.toBeTruthy();
+    });
+    test('should replace all "test" with another value', async () => {
+      expect(reader.replace({
+        from: 'test',
+        to: 'newValue',
+        flags: 'g',
+      })).resolves.toBeTruthy();
     });
   });
 });
