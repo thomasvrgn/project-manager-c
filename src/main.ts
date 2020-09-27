@@ -1,5 +1,5 @@
 import print from 'libs/console';
-import File from 'libs/file';
+import File from 'libs/reader';
 
 const reader: File = new File('tests/libs/content/append.txt');
 reader.replace({ from: 'test', to: 'eheh', flags: 'g' });

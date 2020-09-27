@@ -1,4 +1,4 @@
-import Reader from 'libs/file';
+import Reader from 'libs/reader';
 
 // Main tests category
 describe('#Reader library testing', () => {
