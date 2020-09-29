@@ -7,7 +7,9 @@ export default class Handler {
   public async init() {
     const read: Array<string> = await this.file.read() as Array<string>;
     read.map((file: string): boolean => {
-      print(file);
+      const fileReader: Reader = new Reader(`./src/commands/${file}`);
+      if (fileReader.extension !== '.ts') return true;
+      print(fileReader.extension);
       return true;
     });
   }
