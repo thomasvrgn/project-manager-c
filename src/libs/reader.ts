@@ -124,6 +124,10 @@ export default class Reader {
     });
   }
 
+  public get extension(): string {
+    return extname(this.file.name);
+  }
+
   public replace(...replaces: Array<Replace>): Promise<Error | Boolean> {
     // Returning promise
     // eslint-disable-next-line no-async-promise-executor
