@@ -8,8 +8,8 @@ export default class Handler {
     const read: Array<string> = await this.file.read() as Array<string>;
     read.map((file: string): boolean => {
       const fileReader: Reader = new Reader(`./src/commands/${file}`);
-      if (fileReader.extension !== '.ts') return true;
-      print(fileReader.extension);
+      if (fileReader.file.extension !== '.ts') return true;
+      print(fileReader.file.extension);
       return true;
     });
   }

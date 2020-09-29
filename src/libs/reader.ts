@@ -11,14 +11,16 @@ import { Replace } from 'typings/replace';
 
 export default class Reader {
   // Defining file variable
-  private file: File = {
+  public file: File = {
     name: '',
     content: '',
+    extension: '',
   };
 
   constructor(fileName: string) {
     // Setting global file variable to file name argument
     this.file.name = fileName;
+    if (this.file.extension.length === 0) this.file.extension = extname(this.file.name);
   }
 
   public read(): Promise<string | Array<string>> {
@@ -26,6 +28,7 @@ export default class Reader {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
       const stats: Stats = await this.stats();
+      if (this.file.extension.length === 0) this.file.extension = extname(this.file.name);
       if (stats.isFile()) {
         // Reading global file
         readFile(this.file.name, 'utf-8', (error: Error, content: string): void => {
@@ -55,6 +58,7 @@ export default class Reader {
   public write(...content: Array<any>): Promise<Error | Boolean> {
     // Returning promise
     return new Promise((resolve: Function, reject: Function): void => {
+      if (this.file.extension.length === 0) this.file.extension = extname(this.file.name);
       // Parsing arguments
       const parsedContent: string = content.join('\n');
       // Writing to global file
@@ -87,6 +91,7 @@ export default class Reader {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
       if (this.file.content.length === 0) await this.read();
+      if (this.file.extension.length === 0) this.file.extension = extname(this.file.name);
       // Getting file content from global variable
       const fileContent: Array<string> = (this.file.content as string).split(/\r?\n/g);
       // Parsing readed content and arguments
@@ -108,6 +113,7 @@ export default class Reader {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
       if (this.file.content.length === 0) await this.read();
+      if (this.file.extension.length === 0) this.file.extension = extname(this.file.name);
       // Getting file content from global variable
       const fileContent: Array<string> = (this.file.content as string).split(/\r?\n/g);
       // Parsing readed content and arguments
@@ -124,16 +130,13 @@ export default class Reader {
     });
   }
 
-  public get extension(): string {
-    return extname(this.file.name);
-  }
-
   public replace(...replaces: Array<Replace>): Promise<Error | Boolean> {
     // Returning promise
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async (resolve: Function, reject: Function): Promise<void> => {
       // Setting file content if global file variable is empty
       if (this.file.content.length === 0) await this.read();
+      if (this.file.extension.length === 0) this.file.extension = extname(this.file.name);
       // Looping replaces items
       replaces.map(async (replace: Replace): Promise<Boolean> => {
         const {
@@ -161,6 +164,7 @@ export default class Reader {
   public stats(): Promise<Stats> {
     // Returning promise
     return new Promise((resolve: Function, reject: Function) => {
+      if (this.file.extension.length === 0) this.file.extension = extname(this.file.name);
       // Getting file stats
       stat(this.file.name, (error: Error, stats: Stats) => {
         // If any error, rejecting error
